@@ -14,16 +14,15 @@ const defaultFormFields = {
   password: "",
 };
 
-import './sign-up-form.styles.scss';
+import "./sign-up-form.styles.scss";
 
 const SingUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,16 +39,16 @@ const SingUpForm = () => {
       await createUserDocumnentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use'){
-        alert('Cannot create user, email already in use.')
+      if (error.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email already in use.");
+      } else {
+        console.log("Error", error);
       }
-      console.log("Error", error);
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
 
@@ -60,49 +59,41 @@ const SingUpForm = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
-          inputOptions = {{
-            type:"text",
-            required: true,
-            name:"displayName",
-            value:displayName,
-            onChange:{handleChange}
-          }}
+          type="text"
+          required
+          onChange={handleChange}
+          name="displayName"
+          value={displayName}
         />
 
         <FormInput
           label="Email"
-          inputOptions = {{
-            type:"email",
-            required: true,
-            name:"email",
-            value:email,
-            onChange:{handleChange}
-          }}
+          type="email"
+          required
+          onChange={handleChange}
+          name="email"
+          value={email}
         />
 
         <FormInput
           label="Password"
-          inputOptions = {{
-            type:"password",
-            required: true,
-            name:"password",
-            value: password,
-            onChange:{handleChange}
-          }}
+          type="password"
+          required
+          onChange={handleChange}
+          name="password"
+          value={password}
         />
 
         <FormInput
           label="Confirm Password"
-          inputOptions = {{
-            type:"password",
-            required: true,
-            name:"password",
-            value: confirmPassword,
-            onChange:{handleChange}
-          }}
+          type="password"
+          required
+          onChange={handleChange}
+          name="confirmPassword"
+          value={confirmPassword}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
